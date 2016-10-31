@@ -1,12 +1,327 @@
 ---
-title: Using YOUR-PRODUCT-NAME
+title: Using Azure Service Broker
 owner: Partners
 ---
 
-This topic describes how to use YOUR-PRODUCT-NAME.
+This topic describes how use Azure Service Broker.
 
-##<a id='using'></a> Using YOUR-PRODUCT-NAME
+The procedures in this topic require the [Cloud Foundry Command Line Interface](http://docs.pivotal.io/pivotalcf/cf-cli/index.html) (cf CLI). 
 
-**This topic should include any instructions for how to use the service or dashboard created by the tile. Give procedures for how to perform the different functions offered by your product, and provide screenshots where necessary.** 
+##<a id="list-services"></a>List Services
 
-**You can also use this section to include information about Architecture and Troubleshooting for known errors. If you include a Troubleshooting section, follow the Symptom/Explanation format used in the [Okta Troubleshooting](http://docs.pivotal.io/p-identity/okta/troubleshooting.html) topic**.
+1. In a terminal window, run `cf marketplace` to list all the service offerings from Azure Service Broker.
+
+1. Run `cf marketplace -s SERVICE` to view the descriptions for the plans of a service.
+
+<p class="note"><strong>Note</strong>: See the <a href="https://azure.microsoft.com/en-us/pricing/">Azure Pricing</a> topic to view pricing details for each service.</p>
+
+##<a id="create"></a>Create Service Instances
+
+This section describes how to create service instances for the services offered by Azure Service Broker.
+
+###<a id="storage"></a>Azure Storage
+
+#### Create 
+
+Run `cf create-service azure-storage` to create a new storage account. The following example creates a storage account named `mystorageaccount` with the `standard` plan:
+
+<pre class="terminal">$ cf create-service azure-storage standard mystorage -c storage-example-config.json
+</pre>
+
+The contents of `storage-example-config.json`:
+
+<pre class="terminal">
+{
+  "resource_group_name": "myResourceGroup",
+  "storage_account_name": "mystorageaccount",
+  "location": "eastus",
+  "account_type": "Standard_LRS"
+}
+</pre>
+
+You can find more details [here](https://github.com/Azure/meta-azure-service-broker/blob/master/docs/azure-storage.md).
+
+#### Bind
+
+Bind the service instance `mystorage` to an app.
+
+<pre class="terminal">$ cf bind-service myapp mystorage
+</pre>
+
+The credentials have the following format:
+
+<pre class="terminal">
+"VCAP_SERVICES": {
+  "azure-storage": [
+    {
+      "credentials": {
+        "primary_access_key": "PRIMARY-ACCOUNT-KEY",
+        "secondary_access_key": "SECONDARY-ACCOUNT-KEY",
+        "storage_account_name": "ACCOUNT-NAME"
+      }
+    }
+  ]
+}
+</pre>
+
+You can get the credentials from `ENV['VCAP_SERVICES']`.
+
+<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to delete the binding.</p>
+
+###<a id="rediscache"></a>Azure Redis Cache
+
+#### Create 
+
+Run `cf create-service azure-rediscache` to create a new redis cache. The following example creates a redis cache named `myrediscache` with the `standard` plan:
+
+<pre class="terminal">$ cf create-service azure-rediscache basic myrediscache -c rediscache-example-config.json
+</pre>
+
+The contents of `rediscache-example-config.json`:
+
+<pre class="terminal">
+{
+  "resourceGroup": "redisResourceGroup",
+  "cacheName": "myrediscache",
+  "parameters": {
+    "location": "eastus",
+    "enableNonSslPort": false,
+    "sku": {
+      "name": "Basic",
+      "family": "C",
+      "capacity": 0
+    }
+  }
+}
+</pre>
+
+You can find more details [here](https://github.com/Azure/meta-azure-service-broker/blob/master/docs/azure-redis-cache.md).
+
+#### Bind
+
+Bind the service instance `myrediscache` to an app.
+
+<pre class="terminal">$ cf bind-service myapp myrediscache
+</pre>
+
+The credentials have the following format:
+
+<pre class="terminal">
+"VCAP_SERVICES": {
+  "azure-rediscache": [
+    {
+      "credentials": {
+        "hostname": "<cache-name>.redis.cache.windows.net",
+        "name": "<cache-name>",
+        "port": 6379,
+        "primaryKey": "<primary-key>",
+        "secondaryKey": "<secondary-key>",
+        "sslPort": 6380
+      }
+    }
+  ]
+}
+</pre>
+
+You can get the credentials from `ENV['VCAP_SERVICES']`.
+
+<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to delete the binding.</p>
+
+###<a id="documentdb"></a>Azure DocumentDB
+
+#### Create 
+ 
+Run `cf create-service azure-documentdb` to create a new documentdb host and database. The following example create a documentdb host named `mydocdb` and a documentdb database named `docdb123` with the `standard` plan:
+
+<pre class="terminal">$ cf create-service azure-documentdb standard mydocdb -c documentdb-example-config.json
+</pre>
+
+The contents of `documentdb-example-config.json`:
+
+<pre class="terminal">
+{
+  "resourceGroup": "my-resource-group-name",
+  "docDbAccountName": "mydocdb",
+  "docDbName": "docdb123",
+  "location": "westus"
+}
+</pre>
+
+You can find more details [here](https://github.com/Azure/meta-azure-service-broker/blob/master/docs/azure-document-db.md).
+
+#### Bind
+
+Bind the service instance `mydocdb` to an app.
+
+<pre class="terminal">$ cf bind-service myapp mydocdb
+</pre>
+
+The credentials have the following format:
+
+<pre class="terminal">
+"VCAP_SERVICES": {
+  "azure-documentdb": [
+    {
+      "credentials": {
+        "documentdb_host_endpoint": "https://YOUR_DOCUMENTDB_NAME.documents.azure.com:443/",
+        "documentdb_master_key": "YOUR_SECRET_KEY_ENDING_IN_==",
+        "documentdb_database_id": "YOUR_DOCUMENTDB_NAME",
+        "documentdb_database_link": "dbs/ID_ENDING_IN_==/"
+      }
+    }
+  ]
+}
+</pre>
+
+You can get the credentials from `ENV['VCAP_SERVICES']`.
+
+<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to  delete the binding.</p>
+
+###<a id="servicebus-eventhub"></a>Azure Service Bus and Event Hub
+
+#### Create 
+ 
+Run `cf create-service azure-servicebus` to create a new service bus or event hub.
+
+The following example create a service bus named `myservicebus` with the `standard` plan:
+
+<pre class="terminal">$ cf create-service azure-servicebus standard myservicebus -c servicebus-example-config.json
+</pre>
+
+The contents of `servicebus-example-config.json`:
+
+<pre class="terminal">
+{
+  "resource_group_name": "myResourceGroup",
+  "namespace_name": "myservicebus",
+  "location": "eastus",
+  "type": "Messaging",
+  "messaging_tier": "Standard"
+}
+</pre>
+
+The following example create an event hub named `myeventhub` with the `standard` plan:
+
+<pre class="terminal">$ cf create-service azure-servicebus standard myeventhub -c eventhub-example-config.json
+</pre>
+
+The contents of `eventhub-example-config.json`:
+
+<pre class="terminal">
+{
+  "resource_group_name": "myResourceGroup",
+  "namespace_name": "myeventhub",
+  "location": "eastus",
+  "type": "EventHub",
+  "messaging_tier": "Standard"
+}
+</pre>
+
+You can find more details [here](https://github.com/Azure/meta-azure-service-broker/blob/master/docs/azure-service-bus.md).
+
+#### Bind
+
+Bind the service instance `myservicebus` to an app.
+
+<pre class="terminal">$ cf bind-service myapp myservicebus
+</pre>
+
+The credentials have the following format:
+
+<pre class="terminal">
+"VCAP_SERVICES": {
+  "azure-servicebus": [
+    {
+      "credentials": {
+        "namespace_name": "cf-2eac2d52-bfc9-4d0f-af28-c02187689d72",
+        "key_name": "KEY-NAME",
+        "key_value": "KEY-VALUE",
+      }
+    }
+  ]
+}
+</pre>
+
+You can get the credentials from `ENV['VCAP_SERVICES']`.
+
+<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to  delete the binding.</p>
+
+###<a id="sqldb"></a>Azure SQL Database
+
+#### Create 
+ 
+Run `cf create-service azure-sqldb` to create a new SQL server and database. The following example create a SQL database named `mysqldb` with the `standard` plan:
+
+<pre class="terminal">$ cf create-service azure-sqldb standard mysqldb -c sqldb-example-config.json
+</pre>
+
+The contents of `sqldb-example-config.json`:
+
+<pre class="terminal">
+{
+  "resourceGroup": "sqldbResourceGroup",
+  "location": "westus",
+  "sqlServerName": "mysqlserver",
+  "sqlServerCreateIfNotExist": true,
+  "sqlServerParameters": {
+    "allowSqlServerFirewallRule": {
+      "ruleName": "new rule",
+      "startIpAddress": "0.0.0.0",
+      "endIpAddress": "255.255.255.255"
+    },
+    "location": "westus",
+    "properties": {
+      "administratorLogin": "myusername",
+      "administratorLoginPassword": "mypassword"
+    }
+  },
+  "sqldbName": "mysqldb",
+  "sqldbParameters": {
+    "location": "westus",
+    "properties": {
+      "collation": "SQL_Latin1_General_CP1_CI_AS"
+    }
+  }
+}
+</pre>
+
+You can find more details [here](https://github.com/Azure/meta-azure-service-broker/blob/master/docs/azure-sql-db.md).
+
+#### Bind
+
+Bind the service instance `mysqldb` to an app.
+
+<pre class="terminal">$ cf bind-service myapp mysqldb
+</pre>
+
+The credentials have the following format:
+
+<pre class="terminal">
+"VCAP_SERVICES": {
+  "azure-sqldb": [
+    {
+      "credentials": {
+        "administratorLogin": "ulrich",
+        "administratorLoginPassword": "u1r8chP@ss",
+        "sqlServerName": "sqlservera",
+        "sqldbName": "sqlDbA"
+      }
+    }
+  ]
+}
+</pre>
+
+You can get the credentials from `ENV['VCAP_SERVICES']`.
+
+<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to  delete the binding.</p>
+
+##<a id="delete"></a>Delete a Service Instance
+
+<p class="note"><strong>Note</strong>: Before deleting a service instance, ensure there are no apps bound to the service instance and no data contained within, such as objects in a storage account.</p>
+Run the following command to delete a service instance:
+<pre class="terminal">$ cf delete-service YOUR-SERVICE-INSTANCE
+Really delete the service YOUR-SERVICE-INSTANCE> y
+Deleting service YOUR-SERVICE-INSTANCE in org system / space dev1 as appdev1...
+OK
+Delete in progress. Use 'cf services' or 'cf service YOUR-SERVICE-INSTANCE' to check operation status.
+</pre>
