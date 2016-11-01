@@ -9,17 +9,17 @@ This topic describes how to install and configure Azure Service Broker.
 
 In this step, you configure your Azure account to allow the Azure Service Broker to create and manage Azure resources.
 
-1. Create an Azure account by following the [steps](https://azure.microsoft.com/en-us/free/).
+1. Create an Azure account by following these [steps](https://azure.microsoft.com/en-us/free/).
 
-1. Create a service principal by following the [steps](https://github.com/cloudfoundry-incubator/bosh-azure-cpi-release/blob/master/docs/get-started/create-service-principal.md).
+1. Create a service principal by following these [steps](https://github.com/cloudfoundry-incubator/bosh-azure-cpi-release/blob/master/docs/get-started/create-service-principal.md).
 
-<p class="note"><strong>Note</strong>: The role <code>Contributor</code> needs to be assigned to the service principal. </p>
+<p class="note"><strong>Note</strong>: The <code>Contributor</code> role needs to be assigned to the service principal. </p>
 
-##<a id='database'></a> Step 2: Create a Service Broker Database
+##<a id='database'></a>Step 2: Create a Service Broker Database
 
-Azure Service Broker will store information (e.g. the provisioning information of a service instance) in the database. Please follow the [steps](https://github.com/Azure/meta-azure-service-broker/blob/master/docs/how-admin-deploy-the-broker.md#prerequisites) to create a SQL database on Azure.
+Azure Service Broker stores information, for example the provisioning information of a service instance, in the database. Follow the [steps](https://github.com/Azure/meta-azure-service-broker/blob/master/docs/how-admin-deploy-the-broker.md#prerequisites) to create a SQL database on Azure.
 
-##<a id='install'></a> Step 3: Install and Configure Azure Service Broker
+##<a id='install'></a>Step 3: Install and Configure Azure Service Broker
 
 1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/azure-service-broker).
 
@@ -37,7 +37,7 @@ The setup in [Step 1](#account) must be successfully completed before beginning 
 
     <%= image_tag("images/azure-sb-azureconfig.png") %>
 
-1. Select `Azure Cloud` or `Azure China Cloud` for **Azure Environment**. Select `Azure China Cloud` if you want to create Azure resource in mainland China, otherwise please select "Azure Cloud".
+1. Select `Azure Cloud` or `Azure China Cloud` for **Azure Environment**. Select `Azure China Cloud` if you want to create Azure resource in mainland China, otherwise select "Azure Cloud".
 
 1. Enter the **Subscription Id** from [Step 1](#account).
 
@@ -51,7 +51,7 @@ The setup in [Step 1](#account) must be successfully completed before beginning 
 
     <%= image_tag("images/azure-sb-brokerconfig.png") %>
 
-1. For **Database Provider**, it's the type of the database. For now, only `SQL Database` is supported. More options will be supported in future.
+1. For **Database Provider**, it's the type of the database. For now, only `SQL Database` is supported.
 
 1. For **Database Server**, enter the endpoint (e.g. `<sql-server-name>.database.windows.net`) or the IP address of the SQL database. 
 
@@ -69,7 +69,7 @@ The setup in [Step 1](#account) must be successfully completed before beginning 
 
     <%= image_tag("images/azure-sb-install.png") %>
 
-1. In Apps Manager, the new services will be listed in the `Marketplace` and exposed to all orgs and spaces. Users can create instances of these services only via the cf CLI because Apps Manager doesn't support asynchronous services. Review the [Using Azure Service Broker](using.html) topic for more information.
+1. In Apps Manager, the new services are listed in the `Marketplace` and exposed to all orgs and spaces. Users can create instances of these services only via the cf CLI because Apps Manager doesn't support asynchronous services. See the [Using Azure Service Broker](using.html) topic for more information.
 
     <%= image_tag("images/azure-sb-marketplace.png") %>
 

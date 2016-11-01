@@ -3,9 +3,9 @@ title: Using Azure Service Broker
 owner: Partners
 ---
 
-This topic describes how use Azure Service Broker.
+This topic describes how to use Azure Service Broker.
 
-The procedures in this topic require the [Cloud Foundry Command Line Interface](http://docs.pivotal.io/pivotalcf/cf-cli/index.html) (cf CLI). 
+Before performing the procedures in this topic, ensure that you have installed the [Cloud Foundry Command Line Interface](http://docs.pivotal.io/pivotalcf/cf-cli/index.html) (cf CLI). 
 
 ##<a id="list-services"></a>List Services
 
@@ -64,7 +64,7 @@ The credentials have the following format:
 }
 </pre>
 
-You can get the credentials from `ENV['VCAP_SERVICES']`.
+You can get the credentials from the `ENV['VCAP_SERVICES']` environment variable.
 
 <p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to delete the binding.</p>
 
@@ -95,7 +95,7 @@ The contents of `rediscache-example-config.json`:
 }
 </pre>
 
-You can find more details [here](https://github.com/Azure/meta-azure-service-broker/blob/master/docs/azure-redis-cache.md).
+For more information, see this [topic](https://github.com/Azure/meta-azure-service-broker/blob/master/docs/azure-redis-cache.md).
 
 #### Bind
 
@@ -131,7 +131,7 @@ You can get the credentials from `ENV['VCAP_SERVICES']`.
 
 #### Create 
  
-Run `cf create-service azure-documentdb` to create a new documentdb host and database. The following example create a documentdb host named `mydocdb` and a documentdb database named `docdb123` with the `standard` plan:
+Run `cf create-service azure-documentdb` to create a new documentdb host and database. The following example shows how to create a documentdb host named `mydocdb` and a documentdb database named `docdb123` with the `standard` plan:
 
 <pre class="terminal">$ cf create-service azure-documentdb standard mydocdb -c documentdb-example-config.json
 </pre>
@@ -147,7 +147,7 @@ The contents of `documentdb-example-config.json`:
 }
 </pre>
 
-You can find more details [here](https://github.com/Azure/meta-azure-service-broker/blob/master/docs/azure-document-db.md).
+For more information, see this [topic](https://github.com/Azure/meta-azure-service-broker/blob/master/docs/azure-document-db.md).
 
 #### Bind
 
@@ -183,7 +183,7 @@ You can get the credentials from `ENV['VCAP_SERVICES']`.
  
 Run `cf create-service azure-servicebus` to create a new service bus or event hub.
 
-The following example create a service bus named `myservicebus` with the `standard` plan:
+The following example creates a service bus named `myservicebus` with the `standard` plan:
 
 <pre class="terminal">$ cf create-service azure-servicebus standard myservicebus -c servicebus-example-config.json
 </pre>
@@ -200,7 +200,7 @@ The contents of `servicebus-example-config.json`:
 }
 </pre>
 
-The following example create an event hub named `myeventhub` with the `standard` plan:
+The following example creates an event hub named `myeventhub` with the `standard` plan:
 
 <pre class="terminal">$ cf create-service azure-servicebus standard myeventhub -c eventhub-example-config.json
 </pre>
@@ -217,7 +217,7 @@ The contents of `eventhub-example-config.json`:
 }
 </pre>
 
-You can find more details [here](https://github.com/Azure/meta-azure-service-broker/blob/master/docs/azure-service-bus.md).
+For more information, see this [topic](https://github.com/Azure/meta-azure-service-broker/blob/master/docs/azure-service-bus.md).
 
 #### Bind
 
@@ -285,7 +285,7 @@ The contents of `sqldb-example-config.json`:
 }
 </pre>
 
-You can find more details [here](https://github.com/Azure/meta-azure-service-broker/blob/master/docs/azure-sql-db.md).
+For more information, see this [topic](https://github.com/Azure/meta-azure-service-broker/blob/master/docs/azure-sql-db.md).
 
 #### Bind
 
