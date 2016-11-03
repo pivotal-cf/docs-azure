@@ -37,7 +37,7 @@ The setup in [Step 1](#account) must be successfully completed before beginning 
 
     <%= image_tag("images/azure-sb-azureconfig.png") %>
 
-1. Select `Azure Cloud` or `Azure China Cloud` for **Azure Environment**. Select `Azure China Cloud` if you want to create Azure resource in mainland China, otherwise select "Azure Cloud".
+1. For **Azure Environment**, if you want to create Azure resource in mainland China. select `Azure China Cloud`. Otherwise, select `Azure Cloud`.
 
 1. Enter the **Subscription Id** from [Step 1](#account).
 
@@ -51,7 +51,7 @@ The setup in [Step 1](#account) must be successfully completed before beginning 
 
     <%= image_tag("images/azure-sb-brokerconfig.png") %>
 
-1. For **Database Provider**, it's the type of the database. For now, only `SQL Database` is supported.
+1. For **Database Provider**, select the database type. At the current time, only `SQL Database` is supported.
 
 1. For **Database Server**, enter the endpoint (e.g. `<sql-server-name>.database.windows.net`) or the IP address of the SQL database. 
 
@@ -69,7 +69,7 @@ The setup in [Step 1](#account) must be successfully completed before beginning 
 
     <%= image_tag("images/azure-sb-install.png") %>
 
-1. In Apps Manager, the new services are listed in the `Marketplace` and exposed to all orgs and spaces. Users can create instances of these services only via the cf CLI because Apps Manager doesn't support asynchronous services. See the [Using Azure Service Broker](using.html) topic for more information.
+1. In Apps Manager, the new services are listed in the **Marketplace** and exposed to all orgs and spaces. Users can create instances of these services only by using the Cloud Foundry Command Line Interface (cf CLI) because Apps Manager does not support asynchronous services. See the [Using Azure Service Broker](using.html) topic for more information.
 
     <%= image_tag("images/azure-sb-marketplace.png") %>
 
@@ -78,4 +78,4 @@ The setup in [Step 1](#account) must be successfully completed before beginning 
 
 The Azure Service Broker is installed with all services enabled by default. All services can be listed in the Marketplace.
 
-You can disable or enable any services through the cf CLI using `cf disable-service-access` or `cf enable-service-access`.
+You can disable or enable any services through the cf CLI using the `cf disable-service-access` or `cf enable-service-access` commands.
