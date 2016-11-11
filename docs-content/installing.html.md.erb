@@ -17,7 +17,7 @@ In this step, you configure your Azure account to allow the Azure Service Broker
 
 ##<a id='database'></a>Step 2: Create a Service Broker Database
 
-Azure Service Broker stores information, for example the provisioning information of a service instance, in the database. Follow the [steps](https://github.com/Azure/meta-azure-service-broker/blob/master/docs/how-admin-deploy-the-broker.md#prerequisites) to create a SQL database on Azure.
+Azure Service Broker stores information, for example the provisioning information of a service instance, in the database. Follow these [steps](https://github.com/Azure/meta-azure-service-broker/blob/master/docs/how-admin-deploy-the-broker.md#prerequisites) to create a SQL database on Azure.
 
 ##<a id='install'></a>Step 3: Install and Configure Azure Service Broker
 
@@ -37,7 +37,7 @@ The setup in [Step 1](#account) must be successfully completed before beginning 
 
     <%= image_tag("images/azure-sb-azureconfig.png") %>
 
-1. For **Azure Environment**, if you want to create Azure resource in mainland China. select `Azure China Cloud`. Otherwise, select `Azure Cloud`.
+1. For **Azure Environment**, if you want to create Azure resource in mainland China, select `Azure China Cloud`. Otherwise, select `Azure Cloud`.
 
 1. Enter the **Subscription Id** from [Step 1](#account).
 
@@ -53,7 +53,7 @@ The setup in [Step 1](#account) must be successfully completed before beginning 
 
 1. For **Database Provider**, select the database type. At the current time, only `SQL Database` is supported.
 
-1. For **Database Server**, enter the endpoint (e.g. `<sql-server-name>.database.windows.net`) or the IP address of the SQL database. 
+1. For **Database Server**, enter the endpoint, for example `SQL-SERVER-NAME.database.windows.net`, or the IP address of the SQL database. 
 
 1. For **Database Username** and **Database Password**, enter your database credentials.
 
@@ -63,13 +63,13 @@ The setup in [Step 1](#account) must be successfully completed before beginning 
 
 ##<a id='confirm'></a> Step 4: Confirm Installation
 
-<p class="note"><strong>Note</strong>: The Azure Service Broker installs an app called <code>azure-services-broker</code> in the <code>azure-service-broker-space</code> space of the <code>azure-service-broker-org</code> org.</p>
+<p class="note"><strong>Note</strong>: The Azure Service Broker installs an app named <code>azure-services-broker</code> in the <code>azure-service-broker-space</code> space of the <code>azure-service-broker-org</code> org.</p>
 
 1. After Ops Manager finishes the installation, the **Azure Service Broker** appears as a green tile in the **Installation Dashboard**.
 
     <%= image_tag("images/azure-sb-install.png") %>
 
-1. In Apps Manager, the new services are listed in the **Marketplace** and exposed to all orgs and spaces. Users can create instances of these services only by using the Cloud Foundry Command Line Interface (cf CLI) because Apps Manager does not support asynchronous services. See the [Using Azure Service Broker](using.html) topic for more information.
+1. In Apps Manager, the new services are listed in the **Marketplace**, and are exposed to all orgs and spaces. Users can create instances of these services only by using the Cloud Foundry Command Line Interface (cf CLI) because Apps Manager does not support asynchronous services. See the [Using Azure Service Broker](using.html) topic for more information.
 
     <%= image_tag("images/azure-sb-marketplace.png") %>
 
