@@ -262,14 +262,14 @@ The contents of `sqldb-example-config.json`:
   "resourceGroup": "sqldbResourceGroup",
   "location": "westus",
   "sqlServerName": "mysqlserver",
-  "sqlServerCreateIfNotExist": true,
   "sqlServerParameters": {
-    "allowSqlServerFirewallRule": {
+    "allowSqlServerFirewallRule": [
+      {
       "ruleName": "new rule",
       "startIpAddress": "0.0.0.0",
       "endIpAddress": "255.255.255.255"
-    },
-    "location": "westus",
+      }
+    ],
     "properties": {
       "administratorLogin": "myusername",
       "administratorLoginPassword": "mypassword"
@@ -277,7 +277,6 @@ The contents of `sqldb-example-config.json`:
   },
   "sqldbName": "mysqldb",
   "sqldbParameters": {
-    "location": "westus",
     "properties": {
       "collation": "SQL_Latin1_General_CP1_CI_AS"
     }
