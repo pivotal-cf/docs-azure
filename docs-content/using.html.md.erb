@@ -276,6 +276,24 @@ The contents of `sqldb-example-config.json`:
     }
   },
   "sqldbName": "mysqldb",
+  "transparentDataEncryption": true,
+  "sqldbParameters": {
+    "properties": {
+      "collation": "SQL_Latin1_General_CP1_CI_AS"
+    }
+  }
+}
+</pre>
+
+Another example of `sqldb-example-config.json` for using servers specified in the broker configuration:
+
+<pre class="terminal">
+{
+  "resourceGroup": "sqldbResourceGroup",
+  "location": "westus",
+  "sqlServerName": "mysqlserver",
+  "sqldbName": "mysqldb",
+  "transparentDataEncryption": true,
   "sqldbParameters": {
     "properties": {
       "collation": "SQL_Latin1_General_CP1_CI_AS"
@@ -300,15 +318,20 @@ The credentials have the following format:
   "azure-sqldb": [
     {
       "credentials": {
-        "administratorLogin": "ulrich",
-        "administratorLoginPassword": "u1r8chP@ss",
-        "sqlServerName": "sqlservera",
-        "sqldbName": "sqlDbA"
+        "sqldbName": "sqlDbA",
+        "sqlServerName": "fake-server",
+        "sqlServerFullyQualifiedDomainName": "fake-server.database.windows.net",
+        "databaseLogin": "ulrich",
+        "databaseLoginPassword": "u1r8chP@ss",
+        "jdbcUrl": "jdbc:sqlserver://fake-server.database.windows.net:1433;database=fake-database;user=fake-admin;password=fake-password;Encrypt=true;TrustServerCertificate=false;HostNameInCertificate=*.database.windows.net;loginTimeout=30",
+        "jdbcUrlForAuditingEnabled": "jdbc:sqlserver://fake-server.database.secure.windows.net:1433;database=fake-database;user=fake-admin;password=fake-password;Encrypt=true;TrustServerCertificate=false;HostNameInCertificate=*.database.secure.windows.net;loginTimeout=30"
       }
     }
   ]
 }
 </pre>
+
+Among them, `jdbcUrlForAuditingEnabled` is the JDBC url to connect to the database if auditing is enabled. For more information, see this [topic](https://docs.microsoft.com/en-us/azure/sql-database/sql-database-auditing-and-dynamic-data-masking-downlevel-clients).
 
 You can get the credentials from `ENV['VCAP_SERVICES']`.
 
