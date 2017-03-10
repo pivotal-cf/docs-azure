@@ -285,7 +285,7 @@ The contents of `sqldb-example-config.json`:
 }
 </pre>
 
-Another example of `sqldb-example-config.json` for using servers specified in the broker configuration:
+Here is a second example of `sqldb-example-config.json` where servers are specified in the broker configuration:
 
 <pre class="terminal">
 {
@@ -331,7 +331,7 @@ The credentials have the following format:
 }
 </pre>
 
-Among them, `jdbcUrlForAuditingEnabled` is the JDBC url to connect to the database if auditing is enabled. For more information, see this [topic](https://docs.microsoft.com/en-us/azure/sql-database/sql-database-auditing-and-dynamic-data-masking-downlevel-clients).
+You can use `jdbcUrlForAuditingEnabled` to connect to the database if auditing is enabled. For more information, see this [topic](https://docs.microsoft.com/en-us/azure/sql-database/sql-database-auditing-and-dynamic-data-masking-downlevel-clients).
 
 You can get the credentials from `ENV['VCAP_SERVICES']`.
 

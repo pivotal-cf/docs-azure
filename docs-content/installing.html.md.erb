@@ -65,13 +65,15 @@ The setup in [Step 1](#account) must be successfully completed before beginning 
 
 ###<a id='sqldb-config'></a> SQL Database Config
 
-1. Click **Broker Config**. 
+1. Click **SQL Database Config**. 
 
     <%= image_tag("images/azure-sb-sqldbconfig.png") %>
 
-1. For **Allow to Create Sql Server**, tick the checkbox if you want to allow the developer to create the SQL server through the service broker.
+1. For **Allow to Create Sql Server**, select the checkbox if you want to allow the developers to create the SQL server through the service broker.
 
-1. For **Add**, if you have unchecked the **Allow to Create Sql Server**, you need to create a SQL server on Azure ahead of time for the developers to create their databases, then you need to click **Add**, specify the parameters ( SQL server name, login name, login password) here. IF you have checked the **Allow to Create Sql Server**, then you don't need to create a SQL server.  IF you do create a server and enter the parameter here,  it will be overwritten by the developer's parameter for the service broker.
+1. If you did not select **Allow to Create Sql Server**, you must create a SQL server on Azure for developers to create databases:
+	1. Click **Add**.
+	1.Enter values for the following fields: **SQL Server Name**, **SQL Server Administrator Login**, and **SQL Server Administrator Login Password**.
 
 1. Click **Save**.
 
