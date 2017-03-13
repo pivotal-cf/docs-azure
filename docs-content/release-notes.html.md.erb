@@ -9,6 +9,24 @@ owner: Partners
 
 Features included in this release:
 
+* Azure SQL Database Service
+    * Add a new config form **SQL Database Config**. It allows the operator to disable the developer from creating the SQL server. To do this, the operator needs to uncheck `Allow to Create Sql Server` and provide SQL Server credentials by using `Add` in **SQL Database Config**. Then, the developer only needs to specify the SQL server name in the module configuration.
+    * Provide the database-level users instead of the server-level users as the credentials. Note, you will no longer get the credentials of the admin user.
+    * Add Transparent Data Encryption support.
+    * Additional `jdbcUrl` string property support.
+        * Append more options `Encrypt=true;TrustServerCertificate=false;HostNameInCertificate=*.database.windows.net;loginTimeout=30` to keep consistent with Azure Portal.
+        * Add `jdbcUrlForAuditingEnabled`. It should be used when auditing is enabled.
+        * Fix the issue of the allowed IP in the temporary firewall rule.
+    * Fix the issue of the allowed IP in the temporary firewall rule.
+
+* Upgrade the stemcell version to 3312.
+
+### v1.2.0
+
+**Release Date:** December 22 2016 
+
+Features included in this release:
+
 * Supports Azure Storage
 * Supports Azure Redis Cache
 * Supports Azure DocumentDb
