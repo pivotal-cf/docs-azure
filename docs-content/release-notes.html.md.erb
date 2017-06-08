@@ -2,6 +2,28 @@
 title: Azure Service Broker Release Notes
 owner: Partners
 ---
+### v1.3.0
+
+**Release Date:** June 23, 2017
+
+* Service broker module `azure-sqldb`
+    * Support to update server administrator password if the password of server is changed. See details in the [doc](https://github.com/Azure/meta-azure-service-broker/blob/36a1304522588790f6c452ab601cf2dbfbdf8223/docs/azure-sql-db.md#updating-the-server-instance). 
+    * Add service plans for SQL Data Warehouse
+    * Add `sqlServerFullyQualifiedDomainName` in the service credentials.
+    * Refine `jdbcUrl` in the service credentials and add `jdbcUrlForAuditingEnabled` for SQL server with auditing enabled. See details in the [doc](https://github.com/Azure/meta-azure-service-broker/blob/36a1304522588790f6c452ab601cf2dbfbdf8223/docs/azure-sql-db.md#format-of-credentials).
+* Add a new service broker module `azure-mysqldb`
+    * Support to create service instances for [Azure Database for MySQL](https://azure.microsoft.com/en-us/services/mysql/) (preview).
+    * The broker [document](https://github.com/Azure/meta-azure-service-broker/blob/991735111ca701a0ddd129862a20d4b61e5f3467/docs/azure-mysql-db.md).
+* Add a new service broker module `azure-postgresqldb`
+    * Support to create service instances for [Azure Database for PostgreSQL](https://azure.microsoft.com/en-us/services/postgresql/) (preview).
+    * The broker [document](https://github.com/Azure/meta-azure-service-broker/blob/991735111ca701a0ddd129862a20d4b61e5f3467/docs/azure-postgresql-db.md).
+* Add a new service broker module `azure-cosmosdb`
+    * Support to create service instances for [Azure Cosmos DB](https://azure.microsoft.com/en-us/services/cosmos-db/).
+    * The broker [document](https://github.com/Azure/meta-azure-service-broker/blob/0bb9620c1fe1e6910362e281bf18f087f7d45dba/docs/azure-cosmos-db.md).  
+* Service broker module `azure-documentdb`
+    * Document DB is upgraded and has a new name **Cosmos DB**. The service instances in using still work. For new instances, we recommend to use the new module Cosmos DB. 
+* Rewrite some modules using REST APIs directly
+* Change the logging library to Winston
 
 ### v1.2.3
 
