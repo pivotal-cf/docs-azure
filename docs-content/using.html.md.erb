@@ -250,7 +250,7 @@ You can get the credentials from `ENV['VCAP_SERVICES']`.
 
 #### Create 
  
-Run `cf create-service azure-sqldb` to create a new SQL server and database. The following example create a SQL database named `mysqldb` with the `standard` plan:
+Run `cf create-service azure-sqldb` to create a new SQL server and database. The following example creates a SQL database named `mysqldb` with the `standard` plan:
 
 <pre class="terminal">$ cf create-service azure-sqldb standard mysqldb -c sqldb-example-config.json
 </pre>
@@ -332,6 +332,212 @@ The credentials have the following format:
 </pre>
 
 You can use `jdbcUrlForAuditingEnabled` to connect to the database if auditing is enabled. For more information, see this [topic](https://docs.microsoft.com/en-us/azure/sql-database/sql-database-auditing-and-dynamic-data-masking-downlevel-clients).
+
+You can get the credentials from `ENV['VCAP_SERVICES']`.
+
+<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to  delete the binding.</p>
+
+###<a id="mysqldb"></a>Azure Database for MySQL
+
+#### Create 
+ 
+Run `cf create-service azure-mysqldb` to create a new MySQL instance. The following example creates a MySQL instance named `mysqlservera` with the `basic100` plan:
+
+<pre class="terminal">$ cf create-service azure-mysqldb basic100 mysqldb -c mysqldb-example-config.json
+</pre>
+
+The contents of `mysqldb-example-config.json`:
+
+<pre class="terminal">
+{
+  "resourceGroup": "mysqldbResourceGroup",
+  "location": "westus",
+  "mysqlServerName": "mysqlservera",
+  "mysqlServerParameters": {
+    "allowMysqlServerFirewallRules": [
+      {
+      "ruleName": "newrule",
+      "startIpAddress": "0.0.0.0",
+      "endIpAddress": "255.255.255.255"
+      }
+    ],
+    "properties": {
+      "version": "5.6",
+      "sslEnforcement": "Disabled",
+      "storageMB": 51200,
+      "administratorLogin": "myusername",
+      "administratorLoginPassword": "myPASSw0rd"
+    }
+  }
+}
+</pre>
+
+For more information, see this [topic](https://github.com/Azure/meta-azure-service-broker/blob/master/docs/azure-mysql-db.md).
+
+#### Bind
+
+Bind the service instance `mysqldb` to an app.
+
+<pre class="terminal">$ cf bind-service myapp mysqldb
+</pre>
+
+The credentials have the following format:
+
+<pre class="terminal">
+"VCAP_SERVICES": {
+  "azure-mysqldb": [
+    {
+      "credentials": {
+        "mysqlServerName": "mysqlservera",
+        "mysqlServerFullyQualifiedDomainName": "mysqlservera.mysql.database.azure.com",
+        "administratorLogin": "ulrich",
+        "administratorLoginPassword": "u1r8chP@ss",
+        "jdbcUrl": "jdbc:mysql://mysqlservera.mysql.database.azure.com:3306/{your_database}?verifyServerCertificate=true&useSSL=true&requireSSL=false"
+      }
+    }
+  ]
+}
+</pre>
+
+The character "&" in JDBC url is encoded into "\u0026" by the Cloud Controller. Your app may need to handle this.
+
+You can get the credentials from `ENV['VCAP_SERVICES']`.
+
+<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to  delete the binding.</p>
+
+###<a id="postgresqldb"></a>Azure Database for PostgreSQL
+
+#### Create 
+ 
+Run `cf create-service azure-postgresqldb` to create a new PostgreSQL instance. The following example creates a PostgreSQL instance named `postgresqldb` with the `basic100` plan:
+
+<pre class="terminal">$ cf create-service azure-postgresqldb basic100 postgresqldb -c postgresqldb-example-config.json
+</pre>
+
+The contents of `postgresqldb-example-config.json`:
+
+<pre class="terminal">
+{
+  "resourceGroup": "postgresqldbResourceGroup",
+  "location": "westus",
+  "postgresqlServerName": "postgresqlservera",
+  "postgresqlServerParameters": {
+    "allowPostgresqlServerFirewallRules": [
+      {
+      "ruleName": "newrule",
+      "startIpAddress": "0.0.0.0",
+      "endIpAddress": "255.255.255.255"
+      }
+    ],
+    "properties": {
+      "version": "9.6",
+      "sslEnforcement": "Disabled",
+      "storageMB": 51200,
+      "administratorLogin": "myusername",
+      "administratorLoginPassword": "myPASSw0rd"
+    }
+  }
+}
+</pre>
+
+For more information, see this [topic](https://github.com/Azure/meta-azure-service-broker/blob/master/docs/azure-postgresql-db.md).
+
+#### Bind
+
+Bind the service instance `postgresqldb` to an app.
+
+<pre class="terminal">$ cf bind-service myapp mysqldb
+</pre>
+
+The credentials have the following format:
+
+<pre class="terminal">
+"VCAP_SERVICES": {
+  "azure-postgresqldb": [
+    {
+      "credentials": {
+        "postgresqlServerName": "postgresqlservera",
+        "postgresqlServerFullyQualifiedDomainName": "postgresqlservera.postgresql.database.azure.com",
+        "administratorLogin": "ulrich",
+        "administratorLoginPassword": "u1r8chP@ss",
+        "jdbcUrl": "jdbc:postgresql://postgresqlservera.postgres.database.azure.com:5432/{your_database}?user=ulrich@postgresqlservera&password=u1r8chP@ss&ssl=true"
+      }
+    }
+  ]
+}
+</pre>
+
+The character "&" in JDBC url is encoded into "\u0026" by the Cloud Controller. Your app may need to handle this.
+
+You can get the credentials from `ENV['VCAP_SERVICES']`.
+
+<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to  delete the binding.</p>
+
+###<a id="cosmosdb"></a>Azure CosmosDB
+
+#### Create 
+ 
+Run `cf create-service azure-cosmosdb` to create a new CosmosSQL account with a database. The following example create a CosmosDB instance named `cosmosdb` with the `standard` plan:
+
+<pre class="terminal">$ cf create-service azure-cosmosdb standard cosmosdb -c cosmosdb-example-config.json
+</pre>
+
+The contents of `cosmosdb-example-config.json`:
+
+<pre class="terminal">
+{
+  "resourceGroup": "cosmosdbResourceGroup",
+  "cosmosDbAccountName": "testcosmosdbaccount",
+  "cosmosDbName": "testcosmosdb",
+  "location": "eastus",
+  "kind": "DocumentDB"
+}
+</pre>
+
+For more information, see this [topic](https://github.com/Azure/meta-azure-service-broker/blob/master/docs/azure-cosmos-db.md).
+
+#### Bind
+
+Bind the service instance `postgresqldb` to an app.
+
+<pre class="terminal">$ cf bind-service myapp mysqldb
+</pre>
+
+The credentials have the following format:
+
+<pre class="terminal">
+"VCAP_SERVICES": {
+  "azure-cosmosdb": [
+    {
+      "credentials": {
+        "cosmosdb_host_endpoint": "https://YOUR_COSMOSDB_ACCOUNT_NAME.documents.azure.com:443/",
+        "cosmosdb_master_key": "YOUR_SECRET_KEY_ENDING_IN_==",
+        "cosmosdb_readonly_master_key": "YOUR_READONLY_SECRET_KEY_ENDING_IN_==",
+        "cosmosdb_database_id": "YOUR_COSMOSDB_NAME",
+        "cosmosdb_database_link": "dbs/ID_ENDING_IN_==/"
+      }
+    }
+  ]
+}
+</pre>
+
+For the kind "MongoDB", the credentials have the following format:
+
+<pre class="terminal">
+"VCAP_SERVICES": {
+  "azure-cosmosdb": [
+    {
+      "credentials": {
+        "cosmosdb_host_endpoint": "https://YOUR_COSMOSDB_ACCOUNT_NAME.documents.azure.com:10255/",
+        "cosmosdb_username": "YOUR_COSMOSDB_ACCOUNT_NAME",
+        "cosmosdb_password": "YOUR_PASSWORD_ENDING_IN_==",
+        "cosmosdb_database_name": "YOUR_COSMOSDB_NAME",
+        "cosmosdb_connection_string": "mongodb://<cosmosdb_username>:<cosmosdb_password>@<cosmosdb_host_endpoint>?ssl=true&replicaSet=globaldb"
+      }
+    }
+  ]
+}
+</pre>
 
 You can get the credentials from `ENV['VCAP_SERVICES']`.
 
