@@ -2,29 +2,47 @@
 title: Azure Service Broker Release Notes
 owner: Partners
 ---
+### v1.4.0
+
+**Release Date:** July 26, 2017
+
+* Service broker
+    * Allow to set default parameters for each service when installing or updating the broker.
+    * Support to create service instances on Azure USGovernment and Azure German Cloud.
+    * The nodejs dependencies are vendored so that the installation won't downlod the dependencies.
+* Service broker `azure-rediscache`
+    * Add `redisUrl` to support Spring apps.
+* Service broker `azure-servicebus`
+    * Update parameter style: `resource_group_name` -> `resourceGroup`, `namespace_name` -> `namespaceName`, and `messaging_tier` -> `messagingTier`.
+* Service broker `azure-storage`
+    * Update parameter style: `resource_group_name` -> `resourceGroup`, `storage_account_name` -> `storageAccountName`, and `account_type` -> `accountType`.
+* Service broker `azure-sqldb`    
+    * Add an option `Enable Transparent Data Encryption` in **SQL Database Config**.
+    * Add `Resource Group of the SQL Server` and `Location of the SQL Server` as a required part of SQL Server credentials in **SQL Database Config**.
+    
 ### v1.3.0
 
 **Release Date:** June 23, 2017
 
-* Service broker module `azure-sqldb`:
+* Service broker `azure-sqldb`:
     * Adds support to update server administrator password if the server password is changed. 
       For information, see [Updating the server instance](https://github.com/Azure/meta-azure-service-broker/blob/36a1304522588790f6c452ab601cf2dbfbdf8223/docs/azure-sql-db.md#updating-the-server-instance). 
     * Add service plans for SQL Data Warehouse.
     * Add `sqlServerFullyQualifiedDomainName` in the service credentials.
     * Refine `jdbcUrl` in the service credentials and add `jdbcUrlForAuditingEnabled` for SQL server with auditing enabled.
       For information, see [Format of Credentials](https://github.com/Azure/meta-azure-service-broker/blob/36a1304522588790f6c452ab601cf2dbfbdf8223/docs/azure-sql-db.md#format-of-credentials).
-* Add a new service broker module `azure-mysqldb`:
+* Add a new service broker `azure-mysqldb`:
     * Support to create service instances for [Azure Database for MySQL](https://azure.microsoft.com/en-us/services/mysql/) (preview).
     * The broker [document](https://github.com/Azure/meta-azure-service-broker/blob/991735111ca701a0ddd129862a20d4b61e5f3467/docs/azure-mysql-db.md).
-* Add a new service broker module `azure-postgresqldb`:
+* Add a new service broker `azure-postgresqldb`:
     * Support to create service instances for [Azure Database for PostgreSQL](https://azure.microsoft.com/en-us/services/postgresql/) (preview).
     * The broker [document](https://github.com/Azure/meta-azure-service-broker/blob/991735111ca701a0ddd129862a20d4b61e5f3467/docs/azure-postgresql-db.md).
-* Add a new service broker module `azure-cosmosdb`:
+* Add a new service broker `azure-cosmosdb`:
     * Support to create service instances for [Azure Cosmos DB](https://azure.microsoft.com/en-us/services/cosmos-db/).
     * The broker [document](https://github.com/Azure/meta-azure-service-broker/blob/0bb9620c1fe1e6910362e281bf18f087f7d45dba/docs/azure-cosmos-db.md).  
-* Service broker module `azure-documentdb`:
+* Service broker `azure-documentdb`:
     * Document DB upgraded and renamed **Cosmos DB**. The service instances in use still work.
-      For new instances, Microsoft recommends the new Cosmos DB module. 
+      For new instances, Microsoft recommends the new service Cosmos DB. 
 * Rewrite some modules using REST APIs directly.
 * Change the logging library to Winston.
 

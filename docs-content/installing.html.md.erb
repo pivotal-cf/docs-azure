@@ -71,9 +71,25 @@ The setup in [Step 1](#account) must be successfully completed before beginning 
 
 1. For **Allow to Create Sql Server**, select the checkbox if you want to allow the developers to create the SQL server through the service broker.
 
+1. For **Enable Transparent Data Encryption**, select the checkbox if you want to create SQL Database with Transparent Data Encryption enabled by default.
+
 1. If you did not select **Allow to Create Sql Server**, you must create a SQL server on Azure for developers to create databases:
 	1. Click **Add**.
-	1. Enter values for the following fields: **SQL Server Name**, **SQL Server Administrator Login**, and **SQL Server Administrator Login Password**.
+	1. Enter values for the following fields: **Resource Group of the SQL Server**, **Location of the SQL Server**, **SQL Server Name**, **SQL Server Administrator Login**, and **SQL Server Administrator Login Password**.
+
+1. Click **Save**.
+
+###<a id='defaultparameters-config'></a> Default Parameters Config
+
+1. Click **Default Parameters Config**. 
+
+    <%= image_tag("images/azure-sb-defaultparametersconfig.png") %>
+
+1. If `Allow to Generate Names and Passwords for the Missing` checked, the broker can fix those missing names and passwords in the parameters for creating service instances. Check `generated-string` in the json examples in **Using Azure Service Broker** for details.
+
+1. `Default Resource Group` and `Default Location` can be set to fix missing resource group and location in the parameters for creating service instances.
+
+1. For each service, you can set default parameters for it. The broker can fix those missing parameters in the parameters for creating service instances. Set them with `{}` if you don't require any fixing. The priority of this rule is higher than the rules above.
 
 1. Click **Save**.
 
