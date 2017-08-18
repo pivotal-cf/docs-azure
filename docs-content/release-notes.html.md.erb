@@ -2,6 +2,30 @@
 title: Azure Service Broker Release Notes
 owner: Partners
 ---
+### v1.5.0
+
+**Release Date:** August 22, 2017
+* Service broker
+    * New service instance can be created in an existing resource group, with `location` different from the group location.
+* Service broker `azure-sqldb`
+    * The service plan can be updated.
+    * Connection policy can be set if creating a new server.
+    * Keep binding credentials compatible with [Cloud Foundry MySQL Release](https://github.com/cloudfoundry/cf-mysql-release).
+* Service broker `azure-mysqldb`
+    * Create a database after creating server. The name of database can be specified.
+    * The `jdbcUrl` in the binding credential is just the JDBC URL for the database.
+    * Keep binding credentials compatible with Cloud Foundry MySQL Release.
+* Service broker `azure-postgresqldb`
+    * Creating a database after creating server. The name of database can be specified.
+    * The `jdbcUrl` in the binding credential is just the JDBC URL for the database.
+    * Keep binding credentials compatible with Cloud Foundry MySQL Release.
+* Service broker `azure-eventhubs`
+    * Fix the resource provider and separate it from the `azure-servicebus` as an independent broker.
+    * Remove pricing tier from the parameters passed in, and expose it as service plans.
+* Service broker `azure-servicebus`
+    * Remove namespace type from the parameters passed in since `azure-eventhubs` is separated.
+    * Remove pricing tier from the parameters passed in, and expose it as service plans.
+
 ### v1.4.0
 
 **Release Date:** July 26, 2017
@@ -16,10 +40,10 @@ owner: Partners
     * Update parameter style: `resource_group_name` -> `resourceGroup`, `namespace_name` -> `namespaceName`, and `messaging_tier` -> `messagingTier`.
 * Service broker `azure-storage`
     * Update parameter style: `resource_group_name` -> `resourceGroup`, `storage_account_name` -> `storageAccountName`, and `account_type` -> `accountType`.
-* Service broker `azure-sqldb`    
+* Service broker `azure-sqldb`
     * Add an option `Enable Transparent Data Encryption` in **SQL Database Config**.
     * Add `Resource Group of the SQL Server` and `Location of the SQL Server` as a required part of SQL Server credentials in **SQL Database Config**.
-    
+
 ### v1.3.0
 
 **Release Date:** June 23, 2017
