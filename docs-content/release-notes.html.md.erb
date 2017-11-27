@@ -2,6 +2,23 @@
 title: Azure Service Broker Release Notes
 owner: Partners
 ---
+### v1.5.2
+
+**Release Date:** November 27, 2017
+* Service broker
+    * Fixes possible SQL injection issue.
+    * Uses timing safe comparison in basic authorization. 
+    * Uses bundled nodejs buildpack instead of the github buildpack.
+    * Improves password generator. Impacted modules: `azure-sqldb`, `azure-mysqldb`, and `azure-postgresqldb`.
+* Service broker `azure-mysqldb`
+    * Credentials
+      * Fixes uri encoding issue.
+      * Username changes: username -> username@servername, for mysql client to use directly.
+* Service broker `azure-postgresqldb`
+    * Credentials
+      * Fixes uri encoding issue.
+      * Username changes: username -> username@servername, for postgres client to use directly.
+
 ### v1.5.0
 
 **Release Date:** August 22, 2017
