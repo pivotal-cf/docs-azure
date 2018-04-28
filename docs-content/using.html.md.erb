@@ -5,7 +5,7 @@ owner: Partners
 
 This topic describes how to use Azure Service Broker.
 
-Before performing the procedures in this topic, ensure that you have installed the [Cloud Foundry Command Line Interface](http://docs.pivotal.io/pivotalcf/cf-cli/index.html) (cf CLI). 
+Before performing the procedures in this topic, ensure that you have installed the [Cloud Foundry Command Line Interface](http://docs.pivotal.io/pivotalcf/cf-cli/index.html) (cf CLI).
 
 ##<a id="list-services"></a>List Services
 
@@ -21,7 +21,7 @@ This section describes how to create service instances for the services offered 
 
 ###<a id="storage"></a>Azure Storage
 
-#### Create 
+#### Create
 
 To create an azure storage service instance named `mystorage` with the `standard` plan:
 (if default parameters for the service have been set)
@@ -78,7 +78,7 @@ You can get the credentials from the `ENV['VCAP_SERVICES']` environment variable
 
 ###<a id="rediscache"></a>Azure Redis Cache
 
-#### Create 
+#### Create
 
 To create an azure redis cache service instance named `myrediscache` with the `standard` plan:
 
@@ -202,8 +202,8 @@ You can get the credentials from `ENV['VCAP_SERVICES']`.
 
 ###<a id="servicebus"></a>Azure Service Bus
 
-#### Create 
- 
+#### Create
+
 To create an azure service bus service instance named `myservicebus` with the `standard` plan:
 (if default parameters for the service have been set)
 
@@ -258,8 +258,8 @@ You can get the credentials from `ENV['VCAP_SERVICES']`.
 
 ###<a id="eventhubs"></a>Azure Event Hubs
 
-#### Create 
- 
+#### Create
+
 To create an azure event hubs service instance named `myeventhubs` with the `standard` plan:
 (if default parameters for the service have been set)
 
@@ -318,8 +318,8 @@ You can get the credentials from `ENV['VCAP_SERVICES']`.
 
 ###<a id="sqldb"></a>Azure SQL Database
 
-#### Create 
- 
+#### Create
+
 To create an azure SQL Database service instance named `mysqldb` with the `basic` plan:
 (if default parameters for the service have been set)
 
@@ -405,7 +405,7 @@ If the SQL server credentials are modified, the service broker needs to be infor
 
 ###### As a developper using cf update
 
-1) Modify the config.json file used to create the service instance 
+1) Modify the config.json file used to create the service instance
 
 <pre class="terminal">
 {
@@ -426,7 +426,7 @@ This can be used to change the amount of resources allocated to the service inst
 2) Change the service plan `cf update-service mysqldb -p StandardS0`
 
 <p class="note"><strong>Note</strong>:
-Certain updates are not possible. For example, it is not possible to update from a standard plan to a datawarehouse one. 
+Certain updates are not possible. For example, it is not possible to update from a standard plan to a datawarehouse one.
 Example error message for this situation : `"code":"40882","message":"Can not change SLO from DataWarehouse edition to other SQL DB editions and vice versa."`
 </p>
 
@@ -444,7 +444,7 @@ The credentials have the following format:
   "azure-sqldb": [
     {
       "credentials": {
-        "sqldbName": "sqlDbA",
+        "sqldbName": "fake-database",
         "sqlServerName": "fake-server",
         "sqlServerFullyQualifiedDomainName": "fake-server.database.windows.net",
         "databaseLogin": "ulrich",
@@ -453,10 +453,10 @@ The credentials have the following format:
         "jdbcUrlForAuditingEnabled": "jdbc:sqlserver://fake-server.database.secure.windows.net:1433;database=fake-database;user=fake-admin;password=fake-password;Encrypt=true;TrustServerCertificate=false;HostNameInCertificate=*.database.secure.windows.net;loginTimeout=30",
         "hostname": "fake-server.database.windows.net",
         "port": 1433,
-        "name": "sqlDbA",
-        "username": "ulrich", 
+        "name": "fake-database",
+        "username": "ulrich",
         "password": "u1r8chP@ss",
-        "uri": "mssql://ulrich:u1r8chP@ss@fake-server.database.windows.net:1433/sqlDbA?encrypt=true&TrustServerCertificate=false&HostNameInCertificate=*.database.windows.net"
+        "uri": "mssql://ulrich:u1r8chP@ss@fake-server.database.windows.net:1433/fake-database?encrypt=true&TrustServerCertificate=false&HostNameInCertificate=*.database.windows.net"
       }
     }
   ]
@@ -469,10 +469,74 @@ You can get the credentials from `ENV['VCAP_SERVICES']`.
 
 <p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to delete the binding.</p>
 
+###<a id="sqldbfg"></a>Azure SQL Database Failover Group
+
+In this module, both the primary server and the secondary server should be provided in [SQL Database Config](using.html#sqldb-config).
+And the primary database should also be existing. You can create the the primary database with [Azure SQL Database module](#sqldb).
+
+#### Create
+
+To create an secondary database and a failover group service instance named `mysqldbfg` with the `SecondaryDatabaseWithFailoverGroup` plan:
+
+<pre class="terminal">$ cf create-service azure-sqldbfg SecondaryDatabaseWithFailoverGroup mysqldbfg -c sqldbfg-example-config.json
+</pre>
+
+The contents of `sqldbfg-example-config.json`:
+
+<pre class="terminal">
+{
+  "primaryServerName": "sqlservera",
+  "primaryDbName": "sqldba",
+  "secondaryServerName": "sqlserverb",
+  "failoverGroupName": "failovergroupa"
+}
+</pre>
+
+<p class="note"><strong>Note</strong>: You can use the plan `ExistingDatabaseInFailoverGroup` to just register a failover group as a service instance. It doesn't delete the failover group if you delete the service instance.</p>
+
+For more information, see this [topic](https://github.com/Azure/meta-azure-service-broker/blob/master/docs/azure-sql-db-failover-group.md).
+
+#### Bind
+
+Bind the service instance `mysqldbfg` to an app.
+
+<pre class="terminal">$ cf bind-service myapp mysqldbfg
+</pre>
+
+The credentials have the following format, it keeps consistent format with the credentials of [`azure-sqldb`](#sqldb) but assign the failover group name as the SQL server name:
+
+<pre class="terminal">
+"VCAP_SERVICES": {
+  "azure-sqldb": [
+    {
+      "credentials": {
+        "sqldbName": "sqldba",
+        "sqlServerName": "failovergroupa",
+        "sqlServerFullyQualifiedDomainName": "failovergroupa.database.windows.net",
+        "databaseLogin": "ulrich",
+        "databaseLoginPassword": "u1r8chP@ss",
+        "jdbcUrl": "jdbc:sqlserver://failovergroupa.database.windows.net:1433;database=sqldba;user=fake-admin;password=fake-password;Encrypt=true;TrustServerCertificate=false;HostNameInCertificate=*.database.windows.net;loginTimeout=30",
+        "jdbcUrlForAuditingEnabled": "jdbc:sqlserver://failovergroupa.database.secure.windows.net:1433;database=sqldba;user=fake-admin;password=fake-password;Encrypt=true;TrustServerCertificate=false;HostNameInCertificate=*.database.secure.windows.net;loginTimeout=30",
+        "hostname": "failovergroupa.database.windows.net",
+        "port": 1433,
+        "name": "sqldba",
+        "username": "ulrich",
+        "password": "u1r8chP@ss",
+        "uri": "mssql://ulrich:u1r8chP@ss@failovergroupa.database.windows.net:1433/sqldba?encrypt=true&TrustServerCertificate=false&HostNameInCertificate=*.database.windows.net"
+      }
+    }
+  ]
+}
+</pre>
+
+You can get the credentials from `ENV['VCAP_SERVICES']`.
+
+<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to delete the binding.</p>
+
 ###<a id="mysqldb"></a>Azure Database for MySQL
 
-#### Create 
- 
+#### Create
+
 To create an Azure Database for MySQL service instance named `mysqldb` with the `basic100` plan:
 (if default parameters for the service have been set)
 
@@ -537,7 +601,7 @@ The credentials have the following format:
         "hostname": "mysqlservera.mysql.database.azure.com",
         "port": 3306,
         "name": "mysqldba",
-        "username": "ulrich@mysqlservera", 
+        "username": "ulrich@mysqlservera",
         "password": "u1r8chP@ss",
         "uri": "mysql://ulrich%40mysqlservera:u1r8chP@ss@mysqlservera.mysql.database.azure.com:3306/mysqldba?ssl=true"
       }
@@ -552,8 +616,8 @@ You can get the credentials from `ENV['VCAP_SERVICES']`.
 
 ###<a id="postgresqldb"></a>Azure Database for PostgreSQL
 
-#### Create 
- 
+#### Create
+
 To create an Azure Database for PostgreSQL service instance named `postgresqldb` with the `basic100` plan:
 (if default parameters for the service have been set)
 
@@ -618,7 +682,7 @@ The credentials have the following format:
         "hostname": "postgresqlservera.postgres.database.azure.com",
         "port": 5432,
         "name": "postgresqldba",
-        "username": "ulrich@postgresqlservera", 
+        "username": "ulrich@postgresqlservera",
         "password": "u1r8chP@ss",
         "uri": "postgres://ulrich%40postgresqlservera:u1r8chP@ss@postgresqlservera.postgres.database.azure.com:5432/postgresqldba"
       }
@@ -633,8 +697,8 @@ You can get the credentials from `ENV['VCAP_SERVICES']`.
 
 ###<a id="cosmosdb"></a>Azure CosmosDB
 
-#### Create 
- 
+#### Create
+
 To create an Azure CosmosSQL service instance named `cosmosdb` with the `standard` plan:
 (if default parameters for the service have been set)
 
