@@ -3,7 +3,7 @@ title: Azure Service Broker
 owner: Partners
 ---
 
-This documentation describes the Microsoft Azure Service Broker for Pivotal Cloud Foundry (PCF). 
+This documentation describes the Microsoft Azure Service Broker for Pivotal Cloud Foundry (PCF).
 
 Azure Service Broker extends Cloud Foundry with Azure-managed services that can be consumed by applications. It exposes services in the Marketplace, manages the provisioning and de-provisioning of service instances, and provides credentials for an application to consume the resource.
 
@@ -17,6 +17,7 @@ Azure Service Broker currently supports the following Azure services:
 * [Azure Service Bus](https://azure.microsoft.com/en-us/services/service-bus/)
 * [Azure Event Hubs](https://azure.microsoft.com/en-us/services/event-hubs/)
 * [Azure SQL Database](https://azure.microsoft.com/en-us/services/sql-database/)
+* [Azure SQL Database Failover Group (preview)](https://docs.microsoft.com/en-us/azure/sql-database/sql-database-geo-replication-overview)
 * [Azure Database for MySQL (preview)](https://azure.microsoft.com/en-us/services/mysql/)
 * [Azure Database for PostgreSQL (preview)](https://azure.microsoft.com/en-us/services/postgresql/)
 * [Azure CosmosDB](https://azure.microsoft.com/en-us/services/cosmos-db/)
@@ -32,11 +33,11 @@ The following table provides version and version-support information about Azure
     <th>Details</th>
     <tr>
         <td>Version</td>
-        <td>v1.5.2</td>
+        <td>v1.6.0</td>
     </tr>
     <tr>
         <td>Release date</td>
-        <td>November 27, 2017</td>
+        <td>May 18, 2018</td>
     </tr>
     <tr>
         <td>Compatible Ops Manager version(s)</td>
@@ -48,10 +49,9 @@ The following table provides version and version-support information about Azure
     </tr>
     <tr>
         <td>IaaS support</td>
-        <td>AWS, OpenStack, and vSphere</td>
+        <td>Azure, AWS, GCP, OpenStack, and vSphere</td>
     </tr>
 </table>
- 
 
 ## <a id="reqs"></a>Requirements
 
