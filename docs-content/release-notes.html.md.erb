@@ -2,18 +2,21 @@
 title: Azure Service Broker Release Notes
 owner: Partners
 ---
+
 ### v1.6.0
 
 **Release Date:** May 18, 2018
+
 * Service broker `azure-rediscache`
     * Service Plans
-      * Move the specification of SKU from provisioning parameters to service plans. It is a fix as the original service plans don't match to the Azure Redis Cache SKUs at all. It may break scripts to create new Redis instances.
-* Service broker `azure-sqldb-failover-group` *NEW*
-    * Service plan `SecondaryDatabaseWithFailoverGroup` to support creating SQL Database failover group based on two existing servers and one existing primary database.
-    * The other service plan 'ExistingDatabaseInFailoverGroup' to support registering an existing failover group as a service instance.
-    * See details in the module doc: https://github.com/Azure/meta-azure-service-broker/blob/master/docs/azure-sql-db-failover-group.md
+      * Move the specification of SKU from provisioning parameters to service plans. This fixes the original service plans not matching the Azure Redis Cache SKUs. It may break scripts to create new Redis instances.
 
----
+* Service broker `azure-sqldb-failover-group`
+    * Service plan `SecondaryDatabaseWithFailoverGroup` to support creating SQL Database failover group based on two existing servers and one existing primary database.
+    * TService plan 'ExistingDatabaseInFailoverGroup' to support registering an existing failover group as a service instance.
+    * For more information, see [Azure SQL Database Failover Group Service](https://github.com/Azure/meta-azure-service-broker/blob/master/docs/azure-sql-db-failover-group.md).
+
+
 ### v1.5.2
 
 **Release Date:** November 27, 2017
@@ -24,12 +27,12 @@ owner: Partners
     * Improves password generator. Impacted modules: `azure-sqldb`, `azure-mysqldb`, and `azure-postgresqldb`.
 * Service broker `azure-mysqldb`
     * Credentials
-      * Fixes uri encoding issue.
-      * Username changes: username -> username@servername, for mysql client to use directly.
+      * Fixes URI encoding issue.
+      * Username changes: username -> username@servername, for MySQL client to use directly.
 * Service broker `azure-postgresqldb`
     * Credentials
-      * Fixes uri encoding issue.
-      * Username changes: username -> username@servername, for postgres client to use directly.
+      * Fixes URI encoding issue.
+      * Username changes: username -> username@servername, for PostgreSQL client to use directly.
 
 ### v1.5.0
 
@@ -63,7 +66,7 @@ owner: Partners
 * Service broker
     * Allow to set default parameters for each service when installing or updating the broker.
     * Support to create service instances on Azure USGovernment and Azure German Cloud.
-    * The nodejs dependencies are vendored so that the installation won't downlod the dependencies.
+    * The NodeJS dependencies are vendored so that the installation will not downlod the dependencies.
 * Service broker `azure-rediscache`
     * Add `redisUrl` to support Spring apps.
 * Service broker `azure-servicebus`
@@ -71,7 +74,7 @@ owner: Partners
 * Service broker `azure-storage`
     * Update parameter style: `resource_group_name` -> `resourceGroup`, `storage_account_name` -> `storageAccountName`, and `account_type` -> `accountType`.
 * Service broker `azure-sqldb`
-    * Add an option `Enable Transparent Data Encryption` in **SQL Database Config**.
+    * Add option `Enable Transparent Data Encryption` in **SQL Database Config**.
     * Add `Resource Group of the SQL Server` and `Location of the SQL Server` as a required part of SQL Server credentials in **SQL Database Config**.
 
 ### v1.3.0
@@ -104,7 +107,7 @@ owner: Partners
 
 **Release Date:** May 27, 2017
 
-It's regenerated from v1.2.2 using tile-generator v7.0.2.
+Regenerated from v1.2.2 using tile-generator v7.0.2.
 
 Fixed in this release:
 
@@ -114,7 +117,7 @@ Fixed in this release:
 
 **Release Date:** May 12, 2017
 
-It's regenerated from v1.2.1 using tile-generator v6.0.0.
+Regenerated from v1.2.1 using tile-generator v6.0.0.
 
 Fixed in this release:
 
@@ -133,7 +136,7 @@ Features included in this release:
 * Azure SQL Database Service:
     * Adds a new config form **SQL Database Config**.
       It allows the operator to disable the developer from creating the SQL server.
-      To do this, clear the `Allow to Create Sql Server` checkbox and provide SQL Server credentials by using `Add` in **SQL Database Config**.
+      To do this, uncheck the **Allow to Create Sql Server** checkbox and provide SQL Server credentials by using **Add** in **SQL Database Config**.
       Then, the developer needs to specify the SQL server name in the module configuration.
     * Provides the database-level users instead of the server-level users as the credentials.
       You no longer get the credentials of the admin user.
