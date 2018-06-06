@@ -3,6 +3,21 @@ title: Azure Service Broker Release Notes
 owner: Partners
 ---
 
+### v1.6.1
+
+**Release Date:** June 6, 2018
+
+* Service broker `azure-rediscache`
+  * Treat 200 as success in creation to mitigate 504 error. Get 504, but it actually succeeded. Retry would get 200 instead of 201. As the REST API is idempotent, it is OK to also treat 200 as success.
+
+* Service broker `azure-sqldb`
+  * Fix how to fix provisioning parameters. The original approach can't correctly handle the case sql server name is provided by default parameters.
+  * Add plans for Standard S4 - S12 and Premium P15
+
+* Service broker `azure-sqldb-failover-group`
+  * Fix FQDN generation RegEx issue in binding. In v1.6.0, The binding FQDN is not correct when the primary name contains dashes.
+
+
 ### v1.6.0
 
 **Release Date:** May 18, 2018
