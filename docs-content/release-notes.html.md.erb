@@ -11,7 +11,7 @@ owner: Partners
 
 ### v1.6.1
 
-**Release Date:** June 6, 2018
+**Release Date:** June 8, 2018
 
 * Service broker `azure-rediscache`
   * Treat 200 as success in creation to mitigate 504 gateway timeout error from Azure. Get 504, but it actually succeeded. Retry would get 200 instead of 201. As the REST API is idempotent, it is OK to also treat 200 as success.
