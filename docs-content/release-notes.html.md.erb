@@ -2,6 +2,19 @@
 title: Azure Service Broker Release Notes
 owner: Partners
 ---
+
+### v1.9.0
+
+**Release Date:** August 20, 2018
+
+* Service broker `azure-rediscache`
+
+  * Support update API. You can update service plan to change Redis Cache instance tier. Updating the configuration `enableNonSslPort` is also supported now. See guidance [here](https://github.com/Azure/meta-azure-service-broker/blob/master/docs/azure-redis-cache.md#updating). #183
+
+* Service broker `azure-sqldb-failover-group`
+
+  * Support configuring failover policy. See updated example in the guidance [here](https://github.com/Azure/meta-azure-service-broker/blob/master/docs/azure-sql-db-failover-group.md#create-a-new-failover-group). #185
+
 ### v1.7.0
 
 **Release Date:** July 19, 2018
