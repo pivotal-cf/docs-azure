@@ -166,6 +166,30 @@ The value `generated-string` indicates the corresponding parameter can be genera
 
 For more information, see [Azure DocumentDB](https://github.com/Azure/meta-azure-service-broker/blob/master/docs/azure-document-db.md).
 
+#### Update
+
+##### Update Non-SSL Port Setting
+
+Running `cf update-service myredis -c config.json`. Content of `config.json`:
+
+<pre class="terminal">
+{
+  "parameters": {
+    "enableNonSslPort": true | false
+  }
+}
+</pre>
+
+##### Update Service Plan
+
+To change the amount of resources allocated to the service instance, do the following:
+
+1. Retrieve the name of the desired new service plan from `cf marketplace`.
+
+1. Change the service plan by running `cf update-service myredis -p standardc0`.
+
+<p class="note"><strong>Note:</strong> You can't change tier family and capacity at the same time in one single request per the limitation of Azure Redis service. For example, you can update from `basicc0` to `standardc0`. But you can't update from `basicc0` to `standardc1`. You need to update from `basicc0` to `standardc0`, then from `standardc0` to `standardc1`. </p>
+
 #### Bind
 
 Bind the service instance `mydocdb` to an app by running the following command:
