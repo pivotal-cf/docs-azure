@@ -8,12 +8,10 @@ owner: Partners
 **Release Date:** August 30, 2018
 
 * Service broker `azure-rediscache`
-
-  * Support update API. You can update service plan to change Redis Cache instance tier. Updating the configuration `enableNonSslPort` is also supported now. See guidance [here](https://github.com/Azure/meta-azure-service-broker/blob/master/docs/azure-redis-cache.md#updating).
+  * Support update API. You can update service plan to change Redis Cache instance tier. Updating the configuration `enableNonSslPort` is also supported now. For more information, see the [Azure Redis Cache Service documentation](https://github.com/Azure/meta-azure-service-broker/blob/master/docs/azure-redis-cache.md#updating).
 
 * Service broker `azure-sqldb-failover-group`
-
-  * Support configuring failover policy. See updated example in the guidance [here](https://github.com/Azure/meta-azure-service-broker/blob/master/docs/azure-sql-db-failover-group.md#create-a-new-failover-group).
+  * Support configuring failover policy. For an updated example, see the [Azure Redis Cache Service documentation](https://github.com/Azure/meta-azure-service-broker/blob/master/docs/azure-sql-db-failover-group.md#create-a-new-failover-group).
 
 ### v1.7.0
 
@@ -36,7 +34,6 @@ owner: Partners
 * Service broker `azure-sqldb-failover-group`
   * Fix FQDN generation RegEx issue in binding. In v1.6.0, The binding FQDN is not correct when the primary name contains dashes.
 
-
 ### v1.6.0
 
 **Release Date:** May 18, 2018
@@ -49,7 +46,6 @@ owner: Partners
     * Service plan `SecondaryDatabaseWithFailoverGroup` to support creating SQL Database failover group based on two existing servers and one existing primary database.
     * TService plan 'ExistingDatabaseInFailoverGroup' to support registering an existing failover group as a service instance.
     * For more information, see [Azure SQL Database Failover Group Service](https://github.com/Azure/meta-azure-service-broker/blob/master/docs/azure-sql-db-failover-group.md).
-
 
 ### v1.5.2
 
