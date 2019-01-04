@@ -22,6 +22,8 @@ owner: Partners
 
 **Release Date:** August 30, 2018
 
+Note: If you are using `azure-mysqldb` or `azure-postgresqldb`, you need to upgrade the tile to `v1.10.0+` before **January 31, 2019**. Because the REST API version `2017-04-30-preview` of `azure-mysqldb` and `azure-postgresqldb` will be retired on January 31, 2019.
+
 * Service broker `azure-rediscache`
   * Support update API. You can update service plan to change Redis Cache instance tier. Updating the configuration `enableNonSslPort` is also supported now. For more information, see the [Azure Redis Cache Service documentation](https://github.com/Azure/meta-azure-service-broker/blob/master/docs/azure-redis-cache.md#updating).
 
