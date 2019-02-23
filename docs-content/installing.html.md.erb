@@ -81,6 +81,37 @@ The setup in [Step 1](#account) must be successfully completed before beginning 
 
 ###<a id='defaultparameters-config'></a> Default Parameters Config
 
+<p class="note"><strong>Note</strong>: If **Allow to Create Sql Server** was not checked true. It means that the sql databases will be 
+	created in a pool of sql servers. Therefore, you must provide at least 1 sql server 
+	in the sql server pool and you must add an entry into the default configuration for the `azure sqldb` default 
+	parameters to include  `"sqlServerName": "<your-sql-server-name>"`. For example,
+	
+	```
+	   {
+	    "sqlServerName": "my-precreated-sql-server",
+	    "sqlServerParameters": {
+		"allowSqlServerFirewallRules": [
+		    {
+			"ruleName": "all",
+			"startIpAddress": "0.0.0.0",
+			"endIpAddress": "255.255.255.255"
+		    }
+		]
+	    },
+	    "transparentDataEncryption": true,
+	    "sqldbParameters": {
+		"properties": {
+		    "collation": "SQL_Latin1_General_CP1_CI_AS"
+		}
+	    }
+	```
+	
+	You may also wish to enable `Allow to Generate Names and Passwords for the Missing` in the `Default Parameters Config` tab to allow the broker to generate
+	the database names, otherwise, developers must provide the parameters `-c { "sqlDbName": "a-unique-db-name" }`, when they
+	perform a `cf create-service`.
+	</p>
+
+
 1. Click **Default Parameters Config**. 
 
     <%= image_tag("images/azure-sb-defaultparametersconfig.png") %>
